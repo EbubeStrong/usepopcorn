@@ -1,6 +1,9 @@
 /* eslint-disable */
 import { useState } from "react";
 import ListMovies from "./ListMovies";
+import WatchedMovies from "./WatchedMovies";
+import MovieBox from "./MovieBox";
+import Summary from "./Summary";
 
 const Main = ({ tempMovieData, tempWatchedData, average }) => {
     const [query, setQuery] = useState("");
@@ -15,7 +18,19 @@ const Main = ({ tempMovieData, tempWatchedData, average }) => {
     
   return (
     <main className="main">
-      <div className="box">
+      <MovieBox>
+        {movies?.map((movie) => (
+          <ListMovies movie={movie} key={movie.imdbID} />
+        ))}
+      </MovieBox>
+
+      <MovieBox>
+        <Summary  watched={watched} avgImdbRating={avgImdbRating} avgUserRating={avgUserRating} avgRuntime={avgRuntime} />
+          {watched.map((movie) => (
+            <WatchedMovies movie={movie} />
+          ))}
+      </MovieBox>
+      {/* <div className="box">
         <button
           className="btn-toggle"
           onClick={() => setIsOpen1((open) => !open)}
@@ -29,9 +44,9 @@ const Main = ({ tempMovieData, tempWatchedData, average }) => {
             ))}
           </ul>
         )}
-      </div>
+      </div> */}
 
-      <div className="box">
+      {/* <div className="box">
         <button
           className="btn-toggle"
           onClick={() => setIsOpen2((open) => !open)}
@@ -64,29 +79,12 @@ const Main = ({ tempMovieData, tempWatchedData, average }) => {
 
             <ul className="list">
               {watched.map((movie) => (
-                <li key={movie.imdbID}>
-                  <img src={movie.Poster} alt={`${movie.Title} poster`} />
-                  <h3>{movie.Title}</h3>
-                  <div>
-                    <p>
-                      <span>⭐️</span>
-                      <span>{movie.imdbRating}</span>
-                    </p>
-                    <p>
-                      <span>🌟</span>
-                      <span>{movie.userRating}</span>
-                    </p>
-                    <p>
-                      <span>⏳</span>
-                      <span>{movie.runtime} min</span>
-                    </p>
-                  </div>
-                </li>
+                <WatchedMovies movie={movie} />
               ))}
             </ul>
           </>
         )}
-      </div>
+      </div> */}
     </main>
   );
 };
