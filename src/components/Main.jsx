@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { useState } from "react";
+import ListMovies from "./ListMovies";
 
 const Main = ({ tempMovieData, tempWatchedData, average }) => {
     const [query, setQuery] = useState("");
@@ -24,16 +25,7 @@ const Main = ({ tempMovieData, tempWatchedData, average }) => {
         {isOpen1 && (
           <ul className="list">
             {movies?.map((movie) => (
-              <li key={movie.imdbID}>
-                <img src={movie.Poster} alt={`${movie.Title} poster`} />
-                <h3>{movie.Title}</h3>
-                <div>
-                  <p>
-                    <span>🗓</span>
-                    <span>{movie.Year}</span>
-                  </p>
-                </div>
-              </li>
+              <ListMovies movie={movie} key={movie.imdbID} />
             ))}
           </ul>
         )}
