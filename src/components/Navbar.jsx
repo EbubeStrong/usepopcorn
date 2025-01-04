@@ -1,7 +1,7 @@
-
+import PropTypes from "prop-types";
 import Search from "./Search"
 
-const Navbar = () => {
+const Navbar = ({movieList}) => {
   return (
     <nav className="nav-bar">
       <div className="logo">
@@ -12,10 +12,15 @@ const Navbar = () => {
           <Search />
           
       <p className="num-results">
-        Found <strong>X</strong> results
+        Found <strong>{movieList}</strong> results
       </p>
     </nav>
   );
 };
+
+Navbar.propTypes = {
+  movieList: PropTypes.arrayOf(PropTypes.object).isRequired
+
+}
 
 export default Navbar;

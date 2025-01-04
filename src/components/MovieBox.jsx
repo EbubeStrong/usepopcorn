@@ -2,17 +2,17 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 const MovieBox = ({ children }) => {
-  const [isOpen1, setIsOpen1] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className="box">
       <button
         className="btn-toggle"
-        onClick={() => setIsOpen1((open) => !open)}
+        onClick={() => setIsOpen((open) => !open)}
       >
-        {isOpen1 ? "–" : "+"}
+        {isOpen ? "–" : "+"}
       </button>
-      {isOpen1 && <ul className="list">{children}</ul>}
+      {isOpen && <ul className="list">{children}</ul>}
     </div>
   );
 };

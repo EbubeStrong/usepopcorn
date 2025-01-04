@@ -1,4 +1,5 @@
-
+/* eslint-disable */
+import { useState } from "react";
 // import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
@@ -54,16 +55,16 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-
+  const [movieList, setMovieList] = useState(tempMovieData);
   return (
     <>
-     <Navbar />
+      <Navbar movieList={movieList.length} />
 
       <Main
-        tempMovieData={tempMovieData} tempWatchedData={tempWatchedData}
+        tempMovieData={tempMovieData}
+        tempWatchedData={tempWatchedData}
         average={average}
       />
-      
     </>
   );
 }
