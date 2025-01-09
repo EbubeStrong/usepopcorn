@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import StarRating from "../StarRating/StarRating"
 const WatchedMovies = ({ movie }) => {
   return (
     <li key={movie.imdbID}>
@@ -18,6 +19,9 @@ const WatchedMovies = ({ movie }) => {
           <span>{movie.runtime} min</span>
         </p>
       </div>
+      <div style={{marginTop: "30px"}}>
+        <StarRating />
+        </div>
     </li>
   );
 };

@@ -23,7 +23,8 @@ const Main = ({ tempMovieData, tempWatchedData, average }) => {
       </MovieBox>
 
       <MovieBox>
-        <Summary  watched={watched} avgImdbRating={avgImdbRating} avgUserRating={avgUserRating} avgRuntime={avgRuntime} />
+        <Summary watched={watched} avgImdbRating={avgImdbRating} avgUserRating={avgUserRating} avgRuntime={avgRuntime} />
+        
           {watched.map((movie) => (
             <WatchedMovies movie={movie} />
           ))}
