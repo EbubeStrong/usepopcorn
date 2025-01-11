@@ -19,8 +19,7 @@ const Navbar = ({movieList}) => {
 };
 
 Navbar.propTypes = {
-  movieList: PropTypes.arrayOf(PropTypes.object).isRequired
-
+  movieList: PropTypes.number
 }
 
 export default Navbar;

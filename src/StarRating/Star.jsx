@@ -45,10 +45,10 @@ const Star = ({ onRate, full, onHoverRating, onLeaveRating, color, size }) => {
 };
 
 Star.propTypes = {
-  onRate: PropTypes.func.isRequired,
-  onHoverRating: PropTypes.func.isRequired,
-  onLeaveRating: PropTypes.func.isRequired,
-  full: PropTypes.bool.isRequired,
+  onRate: PropTypes.func,
+  onHoverRating: PropTypes.func,
+  onLeaveRating: PropTypes.func,
+  full: PropTypes.bool,
   color: PropTypes.string,
   size: PropTypes.number,
 };

@@ -64,7 +64,7 @@ const StarRating = ({
 };
 
 StarRating.propTypes = {
-  maxRating: PropTypes.number.isRequired,
+  maxRating: PropTypes.number,
   color: PropTypes.string,
   size: PropTypes.number,
   messages: PropTypes.array,

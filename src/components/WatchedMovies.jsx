@@ -28,12 +28,12 @@ const WatchedMovies = ({ movie }) => {
 
 WatchedMovies.propTypes = {
   movie: PropTypes.shape({
-    Poster: PropTypes.string.isRequired,
-    Title: PropTypes.string.isRequired,
-    imdbID: PropTypes.string.isRequired,
-    imdbRating: PropTypes.string.isRequired,
-    userRating: PropTypes.string.isRequired,
-    runtime: PropTypes.string.isRequired,
+    Poster: PropTypes.string,
+    Title: PropTypes.string,
+    imdbID: PropTypes.string,
+    imdbRating: PropTypes.number,
+    userRating: PropTypes.number,
+    runtime: PropTypes.number,
   }).isRequired,
 };
 
