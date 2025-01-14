@@ -1,11 +1,9 @@
 /* eslint-disable */
 import { useState } from "react";
-// import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 
 import "./index.css";
-
 
 const tempMovieData = [
   {
@@ -54,19 +52,32 @@ const tempWatchedData = [
   },
 ];
 
+// Helper function to calculate averages
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-  const [movieList, setMovieList] = useState(tempMovieData);
+  const [query, setQuery] = useState(""); // Handles search input.
+  const [movieList] = useState(tempMovieData); // Static list for now.
+
+  // Filter movies based on the search query
+  const filteredMovies = movieList.filter((movie) =>
+    movie.Title.toLowerCase().includes(query.toLowerCase())
+  );
+
   return (
     <>
-      <Navbar movieList={movieList.length} />
+      <Navbar
+        movieList={filteredMovies.length} // Pass the count of filtered movies.
+        query={query}
+        setQuery={setQuery}
+      />
 
       <Main
-        tempMovieData={tempMovieData}
         tempWatchedData={tempWatchedData}
         average={average}
+        query={query}
+        movieList={filteredMovies} // Pass the filtered movie list.
       />
     </>
   );

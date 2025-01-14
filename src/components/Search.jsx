@@ -1,7 +1,5 @@
-import { useState } from "react";
-
-const Search = () => {
-  const [query, setQuery] = useState("");
+/* eslint-disable */
+const Search = ({query, setQuery}) => {
 
   return (
     <div>
@@ -10,7 +8,7 @@ const Search = () => {
         type="text"
         placeholder="Search movies..."
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={setQuery}
       />
     </div>
   );

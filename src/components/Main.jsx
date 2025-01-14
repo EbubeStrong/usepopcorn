@@ -4,48 +4,103 @@ import ListMovies from "./ListMovies";
 import WatchedMovies from "./WatchedMovies";
 import MovieBox from "./MovieBox";
 import Summary from "./Summary";
+import ErrorMessage from "./ErrorMessage";
 
-const API = 'dfa7bd90';
+const API = "dfa7bd90";
 
-const Main = ({ tempMovieData, tempWatchedData, average }) => {
+const Main = ({ tempMovieData, tempWatchedData, average, query }) => {
   // const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]); // Initialize as an empty array for movie data.
+  const [isLoading, setIsLoading] = useState(false); // Loading state for fetching movies.
+  const [error, setError] = useState(""); // Error message state for handling fetch issues.
+  const [watched, setWatched] = useState(tempWatchedData); // List of watched movies.
 
-  // WAYS OF FETCHING DATA but the best is useEffect because, it makes codes to not run in infinite network loop and also it is a good practice to use it because it will run only during onmounted and unmounted
+  // WAYS OF FETCHING DATA but the best is useEffect because it avoids infinite network loops and is a good practice since it runs only during component mount and unmount.
 
-  useEffect(() => {
-fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=avengers`)
-  .then((res) => res.json())
-  .then((data) => {
-    setMovies(data.Search) 
-    console.log(data)
-  });
-  }, [])
+  // Using this method - useEffect()
+  //   useEffect(() => {
+  // fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=avengers`)
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     setMovies(data.Search)
+  //     console.log(data)
+  //   });
+  //   }, [])
 
-  
-// fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=marvel`)
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
+  // Or this method - fetch()
+  // fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=marvel`)
+  //   .then((res) => res.json())
+  //   .then((data) => console.log(data));
 
-
+  // Or this method - putting fetch inside a function
   // function movieSearch() {
-// fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=marvel`)
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
+  // fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=marvel`)
+  //   .then((res) => res.json())
+  //   .then((data) => console.log(data));
   // }
   // movieSearch()
 
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
-  const avgRuntime = average(watched.map((movie) => movie.runtime));
+  // Or using async and await
+  useEffect(() => {
+    const movieSearch = async () => {
+      try {
+        setIsLoading(true); // Set loading to true before fetching.
+        setError(""); // Clear previous errors before fetching.
+        const res = await fetch(
+          `http://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=${query}`
+        );
+
+        // Throw an error if the response is not ok.
+        if (!res.ok) {
+          throw new Error(`Error ${res.status}: ${res.statusText}`);
+        }
+
+        const data = await res.json();
+        
+        // Handle API-specific errors.
+        if (data.Response === "False") throw new Error(data.Error);
+
+        setMovies(data.Search || []); // Set the movies, or empty array if none found.
+      } catch (err) {
+        console.error(err.message); // Log the error to the console.
+        setError(err.message); // Update the error state.
+      } finally {
+        setIsLoading(false); // Set loading to false after fetching.
+      }
+    };
+
+    if (query.trim()) movieSearch(); // Fetch movies only if the query is not empty.
+  }, [query]); // Dependency array ensures the effect runs when `query` changes.
+
+  const avgImdbRating = average(watched.map((movie) => movie.imdbRating)); // Calculate average IMDb rating.
+  const avgUserRating = average(watched.map((movie) => movie.userRating)); // Calculate average user rating.
+  const avgRuntime = average(watched.map((movie) => movie.runtime)); // Calculate average runtime.
 
   return (
     <main className="main">
       <MovieBox>
-        {movies?.map((movie) => (
-          <ListMovies movie={movie} key={movie.imdbID} />
-        ))}
+        {/* Instead of too much conditional rendering, you can do this */}
+        {/* {isLoading ? (
+          <h1 className="loader">Loading...</h1>
+        ) : (
+          movies?.map((movie) => (
+            <ListMovies movie={movie} key={movie.imdbID} />
+          ))
+        )} */}
+
+        {/* This 👇 */}
+        {isLoading && <h1 className="loader">Loading...</h1>}
+        {!isLoading && (
+          <>
+            {error ? (
+              <ErrorMessage className="error" message={error} />
+            ) : (
+              movies?.map((movie) => (
+                <ListMovies movie={movie} key={movie.imdbID} />
+              ))
+            )}
+          </>
+        )}
       </MovieBox>
 
       <MovieBox>

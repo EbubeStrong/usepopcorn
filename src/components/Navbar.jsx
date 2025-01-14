@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Search from "./Search"
 
-const Navbar = ({movieList}) => {
+const Navbar = ({movieList, query, setQuery  }) => {
   return (
     <nav className="nav-bar">
       <div className="logo">
@@ -9,7 +9,7 @@ const Navbar = ({movieList}) => {
         <h1>usePopcorn</h1>
           </div>
           
-          <Search />
+          <Search query={query} setQuery={(e) => setQuery(e.target.value)} />
           
       <p className="num-results">
         Found <strong>{movieList}</strong> results
@@ -19,7 +19,9 @@ const Navbar = ({movieList}) => {
 };
 
 Navbar.propTypes = {
-  movieList: PropTypes.number
+  movieList: PropTypes.number,
+  query: PropTypes.string,
+  setQuery: PropTypes.func
 }
 
 export default Navbar;
