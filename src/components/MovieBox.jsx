@@ -5,7 +5,7 @@ const MovieBox = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="box">
+    <div className=" list list-movies box">
       <button
         className="btn-toggle"
         onClick={() => setIsOpen((open) => !open)}

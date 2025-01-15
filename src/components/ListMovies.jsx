@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 
-const ListMovies = ({ movie }) => {
+const ListMovies = ({ movie, onSelectedId }) => {
   return (
-    <li>
+    <li onClick={() => onSelectedId(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
@@ -17,11 +17,12 @@ const ListMovies = ({ movie }) => {
 
 ListMovies.propTypes = {
   movie: PropTypes.shape({
-    Poster: PropTypes.string.isRequired,
-    Title: PropTypes.string.isRequired,
-    Year: PropTypes.string.isRequired,
-    imdbID: PropTypes.string.isRequired,
+    Poster: PropTypes.string,
+    Title: PropTypes.string,
+    Year: PropTypes.string,
+    imdbID: PropTypes.string,
   }).isRequired,
+  onSelectedId: PropTypes.string,
 };
 
 export default ListMovies;

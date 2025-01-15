@@ -5,6 +5,7 @@ import WatchedMovies from "./WatchedMovies";
 import MovieBox from "./MovieBox";
 import Summary from "./Summary";
 import ErrorMessage from "./ErrorMessage";
+import MovieDetails from "./MovieDetails";
 
 const API = "dfa7bd90";
 
@@ -14,6 +15,12 @@ const Main = ({ tempMovieData, tempWatchedData, average, query }) => {
   const [isLoading, setIsLoading] = useState(false); // Loading state for fetching movies.
   const [error, setError] = useState(""); // Error message state for handling fetch issues.
   const [watched, setWatched] = useState(tempWatchedData); // List of watched movies.
+
+  const [selectedId, setSelectedId] = useState(null);
+
+  function handleSelect(id) {
+    setSelectedId(id);
+  }
 
   // WAYS OF FETCHING DATA but the best is useEffect because it avoids infinite network loops and is a good practice since it runs only during component mount and unmount.
 
@@ -86,9 +93,6 @@ const Main = ({ tempMovieData, tempWatchedData, average, query }) => {
             data.Search.length >= 3 ? "" : "Fewer than 3 results found."
           );
         }
-
-
-
       } catch (err) {
         console.error(err.message); // Log the error to the console.
         setError(err.message); // Update the error state.
@@ -97,14 +101,13 @@ const Main = ({ tempMovieData, tempWatchedData, average, query }) => {
       }
     };
 
-    if (query.trim() && query.length >= 3){
-       movieSearch(); 
-      }
-      else{
-        setMovies([])
-        setError("")
-      }
-      // Fetch movies only if the query is not empty.
+    if (query.trim() && query.length >= 3) {
+      movieSearch();
+    } else {
+      setMovies([]);
+      setError("");
+    }
+    // Fetch movies only if the query is not empty.
   }, [query]); // Dependency array ensures the effect runs when `query` changes.
 
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating)); // Calculate average IMDb rating.
@@ -113,9 +116,10 @@ const Main = ({ tempMovieData, tempWatchedData, average, query }) => {
 
   return (
     <main className="main">
-      <MovieBox>
-        {/* Instead of too much conditional rendering, you can do this */}
-        {/* {isLoading ? (
+      <>
+        <MovieBox>
+          {/* Instead of too much conditional rendering, you can do this */}
+          {/* {isLoading ? (
           <h1 className="loader">Loading...</h1>
         ) : (
           movies?.map((movie) => (
@@ -123,33 +127,44 @@ const Main = ({ tempMovieData, tempWatchedData, average, query }) => {
           ))
         )} */}
 
-        {/* This 👇 */}
-        {isLoading && <h1 className="loader">Loading...</h1>}
-        {!isLoading && (
-          <>
-            {error ? (
-              <ErrorMessage className="error" message={error} />
-            ) : (
-              movies?.map((movie) => (
-                <ListMovies movie={movie} key={movie.imdbID} />
-              ))
-            )}
-          </>
-        )}
-      </MovieBox>
+          {/* This 👇 */}
+          {isLoading && <h1 className="loader">Loading...</h1>}
+          {!isLoading && (
+            <>
+              {error ? (
+                <ErrorMessage className="error" message={error} />
+              ) : (
+                movies?.map((movie) => (
+                  <ListMovies
+                    movie={movie}
+                    key={movie.imdbID}
+                    onSelectedId={handleSelect}
+                  />
+                ))
+              )}
+            </>
+          )}
+        </MovieBox>
 
-      <MovieBox>
-        <Summary
-          watched={watched}
-          avgImdbRating={avgImdbRating}
-          avgUserRating={avgUserRating}
-          avgRuntime={avgRuntime}
-        />
+        <MovieBox>
+          {selectedId ? (
+            <MovieDetails selectedId={selectedId} />
+          ) : (
+            <>
+              <Summary
+                watched={watched}
+                avgImdbRating={avgImdbRating}
+                avgUserRating={avgUserRating}
+                avgRuntime={avgRuntime}
+              />
 
-        {watched.map((movie) => (
-          <WatchedMovies key={movie.imdbID} movie={movie} />
-        ))}
-      </MovieBox>
+              {watched.map((movie) => (
+                <WatchedMovies key={movie.imdbID} movie={movie} />
+              ))}
+            </>
+          )}
+        </MovieBox>
+      </>
     </main>
   );
 };

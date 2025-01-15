@@ -18,7 +18,7 @@ const Summary = ({ watched, avgImdbRating, avgUserRating, avgRuntime }) => {
           <span>{avgUserRating}</span>
         </p>
         <p>
-          <span>⏳</span>
+          <span className="span-time">⏳</span>
           <span>{avgRuntime} min</span>
         </p>
       </div>
