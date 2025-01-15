@@ -97,7 +97,14 @@ const Main = ({ tempMovieData, tempWatchedData, average, query }) => {
       }
     };
 
-    if (query.trim()) movieSearch(); // Fetch movies only if the query is not empty.
+    if (query.trim() && query.length >= 3){
+       movieSearch(); 
+      }
+      else{
+        setMovies([])
+        setError("")
+      }
+      // Fetch movies only if the query is not empty.
   }, [query]); // Dependency array ensures the effect runs when `query` changes.
 
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating)); // Calculate average IMDb rating.
