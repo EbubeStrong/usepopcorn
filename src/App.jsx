@@ -68,8 +68,10 @@ export default function App() {
   return (
     <>
       <Navbar
-        movieList={filteredMovies.length} // Pass the count of filtered movies.
+        // movieList={filteredMovies.length} 
+        // Pass the count of filtered movies.
         query={query}
+        queryLength={query.length}
         setQuery={setQuery}
       />
 
