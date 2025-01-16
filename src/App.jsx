@@ -58,7 +58,9 @@ const average = (arr) =>
 
 export default function App() {
   const [query, setQuery] = useState("avengers"); // Handles search input.
-  const [movieList] = useState(tempMovieData); // Static list for now.
+  const [movieList] = useState(tempMovieData);
+   // Static list for now.
+   const [movies, setMovies] = useState([]);
 
   // Filter movies based on the search query
   const filteredMovies = movieList.filter((movie) =>
@@ -71,7 +73,7 @@ export default function App() {
         // movieList={filteredMovies.length} 
         // Pass the count of filtered movies.
         query={query}
-        queryLength={query.length}
+        movieLength={movies.length}
         setQuery={setQuery}
       />
 
@@ -80,6 +82,8 @@ export default function App() {
         average={average}
         query={query}
         movieList={filteredMovies} // Pass the filtered movie list.
+        movies={movies}
+        setMovies={setMovies}
       />
     </>
   );

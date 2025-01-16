@@ -9,9 +9,9 @@ import MovieDetails from "./MovieDetails";
 
 const API = "dfa7bd90";
 
-const Main = ({ tempMovieData, tempWatchedData, average, query }) => {
+const Main = ({ movies, setMovies, tempWatchedData, average, query }) => {
   // const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]); // Initialize as an empty array for movie data.
+  
   const [isLoading, setIsLoading] = useState(false); // Loading state for fetching movies.
   const [error, setError] = useState(""); // Error message state for handling fetch issues.
   const [watched, setWatched] = useState(tempWatchedData); // List of watched movies.
