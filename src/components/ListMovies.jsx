@@ -22,7 +22,7 @@ ListMovies.propTypes = {
     Year: PropTypes.string,
     imdbID: PropTypes.string,
   }).isRequired,
-  onSelectedId: PropTypes.string,
+  onSelectedId: PropTypes.func,
 };
 
 export default ListMovies;

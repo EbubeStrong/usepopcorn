@@ -22,6 +22,10 @@ const Main = ({ movies, setMovies, tempWatchedData, average, query }) => {
     setSelectedId(id);
   }
 
+  function handleClose() {
+    setSelectedId(null);
+  }
+
   // WAYS OF FETCHING DATA but the best is useEffect because it avoids infinite network loops and is a good practice since it runs only during component mount and unmount.
 
   // Using this method - useEffect()
@@ -148,7 +152,7 @@ const Main = ({ movies, setMovies, tempWatchedData, average, query }) => {
 
         <MovieBox>
           {selectedId ? (
-            <MovieDetails selectedId={selectedId} />
+            <MovieDetails selectedId={selectedId}  onClose={handleClose}/>
           ) : (
             <>
               <Summary
