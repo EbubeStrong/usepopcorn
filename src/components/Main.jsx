@@ -15,11 +15,11 @@ const Main = ({ movies, setMovies, tempWatchedData, average, query }) => {
   const [isLoading, setIsLoading] = useState(false); // Loading state for fetching movies.
   const [error, setError] = useState(""); // Error message state for handling fetch issues.
   const [watched, setWatched] = useState(tempWatchedData); // List of watched movies.
-
   const [selectedId, setSelectedId] = useState(null);
 
+
   function handleSelect(id) {
-    setSelectedId(id);
+    setSelectedId(selectedId === id ? null : id);
   }
 
   function handleClose() {
@@ -162,9 +162,9 @@ const Main = ({ movies, setMovies, tempWatchedData, average, query }) => {
                 avgRuntime={avgRuntime}
               />
 
-              {watched.map((movie) => (
+              {/* {watched.map((movie) => (
                 <WatchedMovies key={movie.imdbID} movie={movie} />
-              ))}
+              ))} */}
             </>
           )}
         </MovieBox>
