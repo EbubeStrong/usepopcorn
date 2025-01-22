@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { useState, useEffect } from "react";
 import ListMovies from "./ListMovies";
-import WatchedMovies from "./WatchedMovies";
+// import WatchedMovies from "./WatchedMovies";
 import MovieBox from "./MovieBox";
 import Summary from "./Summary";
 import ErrorMessage from "./ErrorMessage";
@@ -152,7 +152,7 @@ const Main = ({ movies, setMovies, tempWatchedData, average, query }) => {
 
         <MovieBox>
           {selectedId ? (
-            <MovieDetails selectedId={selectedId}  onClose={handleClose}/>
+            <MovieDetails selectedId={selectedId}  onCloseMovie={handleClose}/>
           ) : (
             <>
               <Summary

@@ -6,19 +6,19 @@ import Star from "./Star";
 const containerStyle = {
   display: "flex",
   alignItems: "center",
-  justifyContent: "flexStart",
+  justifyContent: "space-between",
   gap: "16px",
 };
 
 const starContainerStyle = {
   display: "flex",
-  //   gap: "8px",
+    gap: "1px",
 };
 
 const StarRating = ({
   maxRating = 5,
   color = "#fcc419",
-  size = 30,
+  size = "",
   className = "",
   messages = [],
   defaultStar,
@@ -27,7 +27,7 @@ const StarRating = ({
   const [hoverRating, setHoverRating] = useState(0);
   const textStyle = {
     color: color,
-    fontSize: `${size / 1.2}px`,
+    fontSize: `${size / 1.5}px`,
     lineHeight: 0,
     margin: 0,
   };

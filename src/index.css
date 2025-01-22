@@ -259,6 +259,8 @@ body {
 .details {
   line-height: 1.4;
   font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .details header {
@@ -307,6 +309,10 @@ body {
   flex-direction: column;
   gap: 2.4rem;
 }
+
+/* .star__rating{
+  border: "2px solid black",
+} */
 
 .btn-add {
   background-color: var(--color-primary);
