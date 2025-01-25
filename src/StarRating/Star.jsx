@@ -5,6 +5,7 @@ const Star = ({ onRate, full, onHoverRating, onLeaveRating, color, size }) => {
     width: "30px",
     height: "30px",
     cursor: "pointer",
+    margin: "0",
     color,
     size,
     // display: "block",

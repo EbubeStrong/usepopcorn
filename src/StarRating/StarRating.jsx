@@ -13,7 +13,8 @@ const containerStyle = {
 
 const starContainerStyle = {
   display: "flex",
-    gap: "1px",
+  gap: "1px",
+  margin: "0",
 };
 
 const StarRating = ({
@@ -35,7 +36,7 @@ const StarRating = ({
 
   function handleRating(value) {
     setRating(value);
-    defaultStar(value)
+    defaultStar(value);
   }
   return (
     <div className={className} style={containerStyle}>

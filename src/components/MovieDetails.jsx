@@ -57,7 +57,7 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
         <>
           <header>
             <button className="btn-back" onClick={onCloseMovie}>
-              &larr;
+              <i className="bx bx-left-arrow-alt"></i>
             </button>
 
             <img src={poster} alt={`Poster of ${movie}`} />
@@ -78,9 +78,11 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
           <section>
             <div className="rating">
               {/* <StarRating className={"star__rating"} size={1} maxRating={10} /> */}
-              <StarRating size={"10px"} maxRating={10} />
+                <StarRating size={"10px"} maxRating={10} />
+                
+                <button className="btn-add">+ Add to Watched list</button>
             </div>
-            <div style={{display: "flex", flexDirection: "column"}}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
               <p>
                 <em>{plot}</em>
               </p>
