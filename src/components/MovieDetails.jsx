@@ -78,13 +78,15 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
           <section>
             <div className="rating">
               {/* <StarRating className={"star__rating"} size={1} maxRating={10} /> */}
-              <StarRating  size={1} maxRating={10} />
+              <StarRating size={"10px"} maxRating={10} />
             </div>
-            <p>
-              <em>{plot}</em>
-            </p>
-            <p>Starring {actors}</p>
-            <p>Directed by {director}</p>
+            <div style={{display: "flex", flexDirection: "column"}}>
+              <p>
+                <em>{plot}</em>
+              </p>
+              <p>Starring {actors}</p>
+              <p>Directed by {director}</p>
+            </div>
           </section>
         </>
       )}

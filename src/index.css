@@ -306,7 +306,8 @@ body {
   margin-bottom: 0.8rem;
   font-weight: 600;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  margin: -20px 0 10px 0;
   gap: 2.4rem;
 }
 
