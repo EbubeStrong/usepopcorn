@@ -8,7 +8,7 @@ const Star = ({ onRate, full, onHoverRating, onLeaveRating, color, size }) => {
     margin: "0",
     color,
     size,
-    // display: "block",
+    display: "block",
   };
   return (
     <span

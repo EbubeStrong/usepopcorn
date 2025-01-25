@@ -7,14 +7,14 @@ const containerStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  margin: "0",
+  margin: 0,
   // gap: "16px",
 };
 
 const starContainerStyle = {
   display: "flex",
   gap: "1px",
-  margin: "0",
+  margin: 0,
 };
 
 const StarRating = ({
@@ -36,7 +36,7 @@ const StarRating = ({
 
   function handleRating(value) {
     setRating(value);
-    defaultStar(value);
+    // defaultStar(value);
   }
   return (
     <div className={className} style={containerStyle}>

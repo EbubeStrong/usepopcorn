@@ -4,7 +4,7 @@ import StarRating from "../StarRating/StarRating";
 
 const API = "dfa7bd90";
 
-const MovieDetails = ({ selectedId, onCloseMovie }) => {
+const MovieDetails = ({ selectedId, onCloseMovie, onHandleAddMovie }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [movie, setMovie] = useState({
     Title: "",
@@ -31,6 +31,20 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
     Plot: plot,
     Poster: poster,
   } = movie;
+
+  const addMovie = () => { 
+    const newWatchedMovie = {
+      imdbId: selectedId,
+      Title: title,
+      // year,
+
+      imdbRating: (imdbRating === "N/A") ? 0 : parseFloat(imdbRating),
+      runtime: runtime,
+      Poster: poster,
+    }
+
+    onHandleAddMovie(newWatchedMovie);
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -77,10 +91,9 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
 
           <section>
             <div className="rating">
-              {/* <StarRating className={"star__rating"} size={1} maxRating={10} /> */}
-                <StarRating size={"10px"} maxRating={10} />
-                
-                <button className="btn-add">+ Add to Watched list</button>
+              <StarRating size={10} maxRating={10} />
+
+              <button className="btn-add" onClick={addMovie}>+ Add to Watched list</button>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <p>
@@ -99,6 +112,7 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
 MovieDetails.propTypes = {
   selectedId: PropTypes.string,
   onCloseMovie: PropTypes.func,
+  onHandleAddMovie: PropTypes.func,
 };
 
 export default MovieDetails;
