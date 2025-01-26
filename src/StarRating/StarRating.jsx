@@ -23,7 +23,7 @@ const StarRating = ({
   size = "",
   className = "",
   messages = [],
-  defaultStar,
+  // defaultStar,
 }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);

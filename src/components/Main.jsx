@@ -7,10 +7,15 @@ import Summary from "./Summary";
 import ErrorMessage from "./ErrorMessage";
 import MovieDetails from "./MovieDetails";
 
-const API = "dfa7bd90";
+
+const API = import.meta.env.VITE_OMDB_API_KEY;
+
+if (!API) {
+  console.error("OMDB API Key is missing! Check your .env file.");
+}
 
 const Main = ({ movies, setMovies, average, query }) => {
-  // const [query, setQuery] = useState("");
+  // console.log("OMDB API Key:", API);
 
   const [isLoading, setIsLoading] = useState(false); // Loading state for fetching movies.
   const [error, setError] = useState(""); // Error message state for handling fetch issues.
@@ -22,7 +27,7 @@ const Main = ({ movies, setMovies, average, query }) => {
     setSelectedId(selectedId === id ? null : id);
   }
 
-  function handleClose() {
+  function handleCloseMovie() {
     setSelectedId(null);
   }
 
@@ -30,6 +35,13 @@ const Main = ({ movies, setMovies, average, query }) => {
     // Add a movie to the watched list.
     setWatched((watched) => [...watched, movies]);
   }
+
+  // function handleAddMovie(movie) {
+  //   // Prevent duplicate movies in the watched list
+  //   setWatched((prev) =>
+  //     prev.some((m) => m.imdbID === movie.imdbID) ? prev : [...prev, movie]
+  //   );
+  // }
 
   // WAYS OF FETCHING DATA but the best is useEffect because it avoids infinite network loops and is a good practice since it runs only during component mount and unmount.
 
@@ -119,10 +131,24 @@ const Main = ({ movies, setMovies, average, query }) => {
     // Fetch movies only if the query is not empty.
   }, [query]); // Dependency array ensures the effect runs when `query` changes.
 
-  const avgImdbRating = average(watched.map((movie) => (movie.imdbRating || 0)));
+  // const avgImdbRating = average(watched.map((movie) => movie?.imdbRating || 0));
+
+  const avgImdbRating = Number(
+    average(watched.map((movie) => Number(movie?.imdbRating) || 0)).toFixed(1)
+  );
+  avgImdbRating === 0 ? 0 : avgImdbRating;
+
   // const avgImdbRating = average(watched.map((movie) => movie.imdbRating)); // Calculate average IMDb rating.
-  const avgUserRating = average(watched.map((movie) => movie.userRating)); // Calculate average user rating.
-  const avgRuntime = average(watched.map((movie) => (movie.runtime || 0))); // Calculate average runtime.
+  const avgUserRating = average(watched.map((movie) => movie?.userRating)); // Calculate average user rating.
+  // const avgRuntime = average(
+  //   watched.map((movie) => movie?.runtime || 0)
+  // ).toFixed(1); // Calculate average runtime.
+
+  const avgRuntime = Number(
+    average(watched.map((movie) => Number(movie?.runtime) || 0)).toFixed(1)
+  );
+  avgRuntime === 0 ? 0 : avgRuntime;
+
 
   return (
     <main className="main">
@@ -160,7 +186,7 @@ const Main = ({ movies, setMovies, average, query }) => {
           {selectedId ? (
             <MovieDetails
               selectedId={selectedId}
-              onCloseMovie={handleClose}
+              onCloseMovie={handleCloseMovie}
               onHandleAddMovie={handleAddMovie}
             />
           ) : (

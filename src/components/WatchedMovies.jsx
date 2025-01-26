@@ -16,7 +16,7 @@ const WatchedMovies = ({ movie }) => {
         </p>
         <p>
           <span>⏳</span>
-          <span>{movie.runtime}</span>
+          <span>{movie.runtime} min</span>
         </p>
       </div>
       {/* <div style={{marginTop: "30px"}}>

@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import StarRating from "../StarRating/StarRating";
 
-const API = "dfa7bd90";
+const API = import.meta.env.VITE_OMDB_API_KEY;
 
 const MovieDetails = ({ selectedId, onCloseMovie, onHandleAddMovie }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [userRating, setUserRating] = useState(0);
   const [movie, setMovie] = useState({
     Title: "",
     Year: "",
@@ -37,13 +38,16 @@ const MovieDetails = ({ selectedId, onCloseMovie, onHandleAddMovie }) => {
       imdbId: selectedId,
       Title: title,
       // year,
-
-      imdbRating: (imdbRating === "N/A") ? 0 : parseFloat(imdbRating),
-      runtime: runtime,
+      // imdbRating: (imdbRating === "N/A") ? 0 : parseFloat(imdbRating),
+      imdbRating: Number(imdbRating),
+      runtime: runtime.split(" ")[0],
+      // runtime: Number(runtime.split(" ").at(0)),
       Poster: poster,
+      userRating,
     }
-
+    
     onHandleAddMovie(newWatchedMovie);
+    onCloseMovie()
   }
 
   useEffect(() => {
@@ -91,9 +95,11 @@ const MovieDetails = ({ selectedId, onCloseMovie, onHandleAddMovie }) => {
 
           <section>
             <div className="rating">
-              <StarRating size={10} maxRating={10} />
+              <StarRating size={30} maxRating={10} handleSetRating={setUserRating}/>
 
-              <button className="btn-add" onClick={addMovie}>+ Add to Watched list</button>
+                {userRating > 0 && (
+                <button className="btn-add" onClick={addMovie}>+ Add to Watched list</button>
+                )}
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <p>
