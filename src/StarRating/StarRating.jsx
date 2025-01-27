@@ -23,6 +23,7 @@ const StarRating = ({
   size = "",
   className = "",
   messages = [],
+  handleSetRating
   // defaultStar,
 }) => {
   const [rating, setRating] = useState(0);
@@ -36,6 +37,7 @@ const StarRating = ({
 
   function handleRating(value) {
     setRating(value);
+    handleSetRating(value);
     // defaultStar(value);
   }
   return (

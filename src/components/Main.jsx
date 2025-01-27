@@ -7,7 +7,6 @@ import Summary from "./Summary";
 import ErrorMessage from "./ErrorMessage";
 import MovieDetails from "./MovieDetails";
 
-
 const API = import.meta.env.VITE_OMDB_API_KEY;
 
 if (!API) {
@@ -149,7 +148,6 @@ const Main = ({ movies, setMovies, average, query }) => {
   );
   avgRuntime === 0 ? 0 : avgRuntime;
 
-
   return (
     <main className="main">
       <>
@@ -188,6 +186,8 @@ const Main = ({ movies, setMovies, average, query }) => {
               selectedId={selectedId}
               onCloseMovie={handleCloseMovie}
               onHandleAddMovie={handleAddMovie}
+              watched={watched}
+              setWatched={setWatched}
             />
           ) : (
             <>
