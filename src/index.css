@@ -383,6 +383,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding-right: 20px;
   /* height: 80vh; */
   /* border: 2px solid red; */
 }
@@ -413,10 +414,16 @@ body {
 }
 
 @media(max-width: 750px){
+  body{
+    padding: 0;
+  }
   .main{
     flex-direction: column;
     align-items: center;
     height: 100%;
+  }
+  .nav-bar{
+    padding-top: 10px;
   }
   .search-container{
     flex-direction: column-reverse;
@@ -435,6 +442,16 @@ body {
     height: 70vh;
   }
   
+}
+
+@media(max-width: 650px){
+  .box {
+  width: 100%;
+  max-width: 100%;
+}
+.search{
+  width: 30rem;
+  }
 }
 
 /*
