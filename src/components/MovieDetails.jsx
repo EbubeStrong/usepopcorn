@@ -12,7 +12,7 @@ const MovieDetails = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState(0);
-  const [ setStoredRating] = useState(null);
+  // const [setStoredRating] = useState(null);
   const [movie, setMovie] = useState({});
 
   const isWatched = watched?.some((movie) => movie.imdbId === selectedId);
@@ -35,12 +35,12 @@ const MovieDetails = ({
     fetchData();
   }, [selectedId]);
 
-  useEffect(() => {
-    const selectedMovie = JSON.parse(localStorage.getItem(selectedId));
-    if (selectedMovie) {
-      setStoredRating(selectedMovie.userRating);
-    }
-  }, [selectedId, setStoredRating]);
+  // useEffect(() => {
+  //   const selectedMovie = JSON.parse(localStorage.getItem(selectedId));
+  //   if (selectedMovie) {
+  //     setStoredRating(selectedMovie.userRating);
+  //   }
+  // }, [selectedId, setStoredRating]);
 
   const imdbRating = movie.imdbRating === "N/A" ? 0 : Number(movie.imdbRating);
   const runtimeMinutes =
@@ -62,7 +62,7 @@ const MovieDetails = ({
     onCloseMovie();
 
     // Save to localStorage
-    localStorage.setItem(selectedId, JSON.stringify(newWatchedMovie));
+    // localStorage.setItem(selectedId, JSON.stringify(newWatchedMovie));
   };
 
   return (

@@ -19,8 +19,18 @@ const Main = ({ movies, setMovies, average, query }) => {
   const [isLoading, setIsLoading] = useState(false); // Loading state for fetching movies.
   const [error, setError] = useState(""); // Error message state for handling fetch issues.
   // const [watched, setWatched] = useState(tempWatchedData); // List of watched movies.
-  const [watched, setWatched] = useState([]); // List of watched movies.
   const [selectedId, setSelectedId] = useState(null);
+
+  const [watched, setWatched] = useState(() => {
+    const storedMovies = localStorage.getItem("watchedMovies");
+    return storedMovies ? JSON.parse(storedMovies) : [];
+  });
+
+  // Save `watched` movies to localStorage whenever it updates
+  useEffect(() => {
+    localStorage.setItem("watchedMovies", JSON.stringify(watched));
+  }, [watched]);
+
 
   function handleSelect(id) {
     setSelectedId(selectedId === id ? null : id);
@@ -41,6 +51,10 @@ const Main = ({ movies, setMovies, average, query }) => {
   //     prev.some((m) => m.imdbID === movie.imdbID) ? prev : [...prev, movie]
   //   );
   // }
+
+    function handleRemoveMovie(id) {
+      setWatched((prev) => prev.filter((movie) => movie.imdbID !== id));
+    }
 
   // WAYS OF FETCHING DATA but the best is useEffect because it avoids infinite network loops and is a good practice since it runs only during component mount and unmount.
 
@@ -167,14 +181,16 @@ const Main = ({ movies, setMovies, average, query }) => {
             <>
               {error ? (
                 <ErrorMessage className="error" message={error} />
-              ) : (
-                movies?.map((movie) => (
+              ) : movies?.length > 0 ? (
+                movies.map((movie) => (
                   <ListMovies
                     movie={movie}
                     key={movie.imdbID}
                     onSelectedId={handleSelect}
                   />
                 ))
+              ) : (
+                <p>Please check your connection</p>
               )}
             </>
           )}
@@ -199,7 +215,11 @@ const Main = ({ movies, setMovies, average, query }) => {
               />
 
               {watched.map((movie) => (
-                <WatchedMovies key={movie.imdbID} movie={movie} />
+                <WatchedMovies
+                  key={movie.imdbID || movie.Title}
+                  movie={movie}
+                  onRemoveMovie={handleRemoveMovie}
+                />
               ))}
             </>
           )}

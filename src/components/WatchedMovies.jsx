@@ -1,28 +1,35 @@
 import PropTypes from "prop-types";
 // import StarRating from "../StarRating/StarRating"
-const WatchedMovies = ({ movie }) => {
+const WatchedMovies = ({ movie, onRemoveMovie }) => {
   return (
-    <li key={movie.imdbID}>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
-      <h3>{movie.Title}</h3>
-      <div>
-        <p>
-          <span>⭐️</span>
-          <span>{movie.imdbRating}</span>
-        </p>
-        <p>
-          <span>🌟</span>
-          <span>{movie.userRating}</span>
-        </p>
-        <p>
-          <span>⏳</span>
-          <span>{movie.runtime} min</span>
-        </p>
-      </div>
-      {/* <div style={{marginTop: "30px"}}>
-        <StarRating />
-        </div> */}
-    </li>
+    <div className="watched">
+      <li key={movie.imdbID}>
+        <img src={movie.Poster} alt={`${movie.Title} poster`} />
+        <h3>{movie.Title}</h3>
+        <div>
+          <p>
+            <span>⭐️</span>
+            <span>{movie.imdbRating}</span>
+          </p>
+          <p>
+            <span>🌟</span>
+            <span>{movie.userRating}</span>
+          </p>
+          <p>
+            <span>⏳</span>
+            <span>{movie.runtime} min</span>
+          </p>
+        </div>
+
+        {/* <div></div> */}
+      </li>
+      <button
+        // style={{ backgroundColor: "", color: "white" }}
+        onClick={() => onRemoveMovie(movie.imdbID)}
+      >
+        ❌{" "}
+      </button>
+    </div>
   );
 };
 
@@ -33,8 +40,9 @@ WatchedMovies.propTypes = {
     imdbID: PropTypes.string,
     imdbRating: PropTypes.number,
     userRating: PropTypes.number,
-    runtime: PropTypes.number,
-  }).isRequired,
+    runtime: PropTypes.string,
+  }),
+  onRemoveMovie: PropTypes.func,
 };
 
 export default WatchedMovies;
