@@ -77,6 +77,8 @@ const MovieDetails = ({
     return () => document.title = prevTitle
   }, [movie.Title]);
 
+  
+
   useEffect(() => {
     function escapeKey(e) {
       if (e.code === "Escape") {

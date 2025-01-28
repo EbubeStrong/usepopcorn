@@ -163,6 +163,8 @@ const Main = ({ movies, setMovies, average, query }) => {
      }
      movieSearch();
 
+     handleCloseMovie()
+
     // Cleanup function to abort the request if component unmounts
     return () => controller.abort();
 
