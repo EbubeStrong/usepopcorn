@@ -8,12 +8,13 @@ const Navbar = ({ movieLength, query, setQuery }) => {
         <span role="img">🍿</span>
         <h1>usePopcorn</h1>
       </div>
+      <div className="search-container">
+        <Search query={query} setQuery={(e) => setQuery(e.target.value)} />
 
-      <Search query={query} setQuery={(e) => setQuery(e.target.value)} />
-
-      <p className="num-results">
-        Found <strong>{movieLength ? movieLength : 0}</strong> results
-      </p>
+        <p className="num-results">
+          Found <strong>{movieLength ? movieLength : 0}</strong> results
+        </p>
+      </div>
     </nav>
   );
 };
