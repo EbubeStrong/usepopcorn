@@ -77,6 +77,18 @@ const MovieDetails = ({
     return () => document.title = prevTitle
   }, [movie.Title]);
 
+  useEffect(() => {
+    function escapeKey(e) {
+      if (e.code === "Escape") {
+       onCloseMovie()
+     }
+    }
+
+    document.addEventListener('keydown', escapeKey)
+
+    return () => document.removeEventListener('keydown', escapeKey)
+  }, [onCloseMovie])
+
   return (
     <div className="details">
       {isLoading ? (

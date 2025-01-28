@@ -156,7 +156,7 @@ const Main = ({ movies, setMovies, average, query }) => {
       return
     }
 
-     if (query.length < 3) {
+     if (query.length <= 3) {
        setMovies([]);
        setError("Search input must have at least 3 characters");
        return;
