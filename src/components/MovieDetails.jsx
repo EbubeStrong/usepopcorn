@@ -36,6 +36,8 @@ const MovieDetails = ({
     fetchData();
   }, [selectedId]);
 
+  
+
   // useEffect(() => {
   //   const selectedMovie = JSON.parse(localStorage.getItem(selectedId));
   //   if (selectedMovie) {
@@ -65,6 +67,15 @@ const MovieDetails = ({
     // Save to localStorage
     // localStorage.setItem(selectedId, JSON.stringify(newWatchedMovie));
   };
+
+  useEffect(function () {
+    if (!movie.Title) return
+    const prevTitle = document.title
+    document.title = `Movie | ${movie.Title}`;
+
+    // cleanup function and its very neccessary to do it
+    return () => document.title = prevTitle
+  }, [movie.Title]);
 
   return (
     <div className="details">
