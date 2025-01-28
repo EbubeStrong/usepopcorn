@@ -88,7 +88,7 @@ const Main = ({ movies, setMovies, average, query }) => {
         setIsLoading(true); // Set loading to true before fetching.
         setError(""); // Clear previous errors before fetching.
         const res = await fetch(
-          `http://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=${query}`
+          `https://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=${query}`
         );
 
         // Throw an error if the response is not ok.
