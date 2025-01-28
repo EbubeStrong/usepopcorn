@@ -31,7 +31,6 @@ const Main = ({ movies, setMovies, average, query }) => {
     localStorage.setItem("watchedMovies", JSON.stringify(watched));
   }, [watched]);
 
-
   function handleSelect(id) {
     setSelectedId(selectedId === id ? null : id);
   }
@@ -52,9 +51,9 @@ const Main = ({ movies, setMovies, average, query }) => {
   //   );
   // }
 
-    function handleRemoveMovie(id) {
-      setWatched((prev) => prev.filter((movie) => movie.imdbID !== id));
-    }
+  function handleRemoveMovie(id) {
+    setWatched((prev) => prev.filter((movie) => movie.imdbID !== id));
+  }
 
   // WAYS OF FETCHING DATA but the best is useEffect because it avoids infinite network loops and is a good practice since it runs only during component mount and unmount.
 
@@ -83,12 +82,17 @@ const Main = ({ movies, setMovies, average, query }) => {
 
   // Or using async and await
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     const movieSearch = async () => {
       try {
         setIsLoading(true); // Set loading to true before fetching.
         setError(""); // Clear previous errors before fetching.
+
         const res = await fetch(
-          `https://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=${query}`
+          `https://www.omdbapi.com/?i=tt3896198&apikey=${API}&s=${query}`,
+          { signal }
         );
 
         // Throw an error if the response is not ok.
@@ -123,24 +127,45 @@ const Main = ({ movies, setMovies, average, query }) => {
         // simplified and correct logic
         if (data.Search) {
           setMovies(data.Search.length >= 3 ? data.Search : []);
-          setError(
-            data.Search.length >= 3 ? "" : "Fewer than 3 results found."
-          );
+
+          setError(data.Search.length < 3 ? "Fewer than 3 results found." : "");
         }
+
+        setError("");
       } catch (err) {
-        console.error(err.message); // Log the error to the console.
-        setError(err.message); // Update the error state.
+       if (err.name !== "AbortError") {
+         console.error(err.message); // Log the error to the console.
+         setError(err.message); // Update the error state.
+       }
       } finally {
         setIsLoading(false); // Set loading to false after fetching.
       }
     };
 
-    if (query.trim() && query.length >= 3) {
-      movieSearch();
-    } else {
-      setMovies([]);
-      setError("");
+    // if (query.trim() && query.length >= 3) {
+    //   movieSearch();
+    //   setError("Search input must have at least 3 characters");
+    // } else {
+    //   setMovies([]);
+    //   setError("");
+    // }
+
+    if (!query.trim()) {
+      setMovies([])
+      setError("")
+      return
     }
+
+     if (query.length < 3) {
+       setMovies([]);
+       setError("Search input must have at least 3 characters");
+       return;
+     }
+     movieSearch();
+
+    // Cleanup function to abort the request if component unmounts
+    return () => controller.abort();
+
     // Fetch movies only if the query is not empty.
   }, [query]); // Dependency array ensures the effect runs when `query` changes.
 
@@ -190,7 +215,9 @@ const Main = ({ movies, setMovies, average, query }) => {
                   />
                 ))
               ) : (
-                <p>Please check your connection</p>
+                <h1 style={{ margin: "50px 20px" }}>
+                  Search for any movie in the search bar
+                </h1>
               )}
             </>
           )}
