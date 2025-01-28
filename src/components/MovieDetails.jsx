@@ -16,6 +16,7 @@ const MovieDetails = ({
   const [movie, setMovie] = useState({});
 
   const isWatched = watched?.some((movie) => movie.imdbId === selectedId);
+  const watchedUserRating = watched.find((movie) => movie.imdbId === selectedId)?.userRating
 
   useEffect(() => {
     async function fetchData() {
@@ -92,7 +93,7 @@ const MovieDetails = ({
           <section>
             <div className="rating">
               {isWatched ? (
-                <p>You already rated this movie</p>
+                  <p>You already rated this movie {watchedUserRating} ⭐</p>
               ) : (
                 <>
                   <StarRating
