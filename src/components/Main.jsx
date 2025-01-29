@@ -248,7 +248,7 @@ const Main = ({ movies, setMovies, average, query }) => {
               <Summary
                 watched={watched}
                 avgImdbRating={avgImdbRating}
-                avgUserRating={avgUserRating}
+                avgUserRating={avgUserRating.toFixed(2)}
                 avgRuntime={avgRuntime}
               />
 
