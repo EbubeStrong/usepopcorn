@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const WatchedMovies = ({ movie, onRemoveMovie }) => {
   return (
     <div className="watched">
-      <li key={movie.imdbID}>
+      <li key={movie.imdbId}>
         <img src={movie.Poster} alt={`${movie.Title} poster`} />
         <h3>{movie.Title}</h3>
         <div>
@@ -25,7 +25,7 @@ const WatchedMovies = ({ movie, onRemoveMovie }) => {
       </li>
       <button
         // style={{ backgroundColor: "", color: "white" }}
-        onClick={() => onRemoveMovie(movie.imdbID)}
+        onClick={() => onRemoveMovie(movie.imdbId)}
       >
         ❌{" "}
       </button>
@@ -37,7 +37,7 @@ WatchedMovies.propTypes = {
   movie: PropTypes.shape({
     Poster: PropTypes.string,
     Title: PropTypes.string,
-    imdbID: PropTypes.string,
+    imdbId: PropTypes.string,
     imdbRating: PropTypes.number,
     userRating: PropTypes.number,
     runtime: PropTypes.string,

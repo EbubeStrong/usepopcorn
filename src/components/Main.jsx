@@ -51,9 +51,10 @@ const Main = ({ movies, setMovies, average, query }) => {
   //   );
   // }
 
-  function handleRemoveMovie(id) {
-    setWatched((prev) => prev.filter((movie) => movie.imdbID !== id));
-  }
+  // function handleRemoveMovie(id) {
+  //   setWatched((prev) => prev.filter((movie) => movie.imdbID !== id));
+  // }
+
 
   // WAYS OF FETCHING DATA but the best is useEffect because it avoids infinite network loops and is a good practice since it runs only during component mount and unmount.
 
@@ -134,7 +135,8 @@ const Main = ({ movies, setMovies, average, query }) => {
         setError("");
       } catch (err) {
        if (err.name !== "AbortError") {
-         console.error(err.message); // Log the error to the console.
+         console.error(err.message);
+         // Log the error to the console.
          setError(err.message); // Update the error state.
        }
       } finally {
@@ -189,6 +191,12 @@ const Main = ({ movies, setMovies, average, query }) => {
     average(watched.map((movie) => Number(movie?.runtime) || 0)).toFixed(1)
   );
   avgRuntime === 0 ? 0 : avgRuntime;
+
+
+   function handleRemoveMovie(id) {
+    //  console.log("Removing movie with ID:", id);
+     setWatched((prev) => prev.filter((movie) => movie.imdbId !== id));
+   }
 
   return (
     <main className="main">
@@ -246,7 +254,7 @@ const Main = ({ movies, setMovies, average, query }) => {
 
               {watched.map((movie) => (
                 <WatchedMovies
-                  key={movie.imdbID || movie.Title}
+                  key={movie.imdbId || movie.Title}
                   movie={movie}
                   onRemoveMovie={handleRemoveMovie}
                 />
