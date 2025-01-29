@@ -66,8 +66,8 @@ export default function App() {
   // Filter movies based on the search query
   const filteredMovies = movieList.filter((movie) =>
     movie.Title.toLowerCase().includes(query.toLowerCase())
-  );
 
+  );
   return (
     <>
       <Navbar

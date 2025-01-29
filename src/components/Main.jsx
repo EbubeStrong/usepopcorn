@@ -160,10 +160,11 @@ const Main = ({ movies, setMovies, average, query }) => {
        setMovies([]);
        setError("Search input must have at least 3 characters");
        return;
-     }
+    }
+    
+     handleCloseMovie()
      movieSearch();
 
-     handleCloseMovie()
 
     // Cleanup function to abort the request if component unmounts
     return () => controller.abort();
