@@ -57,7 +57,7 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-  const [query, setQuery] = useState("Avengers"); 
+  const [query, setQuery] = useState(""); 
   // const [query, setQuery] = useState(tempMovieData); 
   const [movieList] = useState(tempMovieData);
    // Static list for now.
